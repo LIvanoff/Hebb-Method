@@ -17,7 +17,7 @@ class HebbMethod:
 
     def calculating_weights(self, i: int, img_as_array):
         Sum = 0.0
-        for j, b in zip(range(0, len(img_as_array), 3), range(0, 15, 1)):
+        for j, b in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
             Sum += np.multiply(img_as_array[j], self.weights[i][b])
         return self.Relu(round(Sum))
 
@@ -33,15 +33,15 @@ class HebbMethod:
                         img_as_array[j] = 0
 
             while (self.calculating_weights(i, img_as_array) != i):
-                for b, j in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
-                    self.weights[i][j] = self.weights[i][j] + np.multiply(img_as_array[b], i)
+                for j, b in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
+                    self.weights[i][b] = self.weights[i][b] + np.multiply(img_as_array[j], i)
                 # self.T = self.T - i
 
     def predict(self, img_as_array):
         num = 0
         for i in range(0,len(self.integer_image)):
             count = 0
-            for j, b in zip(range(0, len(img_as_array), 3), range(0, 15, 1)):
+            for j, b in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
                 if img_as_array[j] > 0 and self.weights[i][b] > 0:
                     count += 1
                 elif img_as_array[j] == 0 and self.weights[i][b] == 0:
