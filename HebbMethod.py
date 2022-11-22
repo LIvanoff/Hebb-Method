@@ -32,15 +32,10 @@ class HebbMethod:
                     elif img_as_array[j] == 254 or img_as_array[j] == 255:
                         img_as_array[j] = 0
 
-            Sum = self.calculating_weights(i, img_as_array)  # - self.T
-
-            while ((Sum) != i):
+            while (self.calculating_weights(i, img_as_array) != i):
                 for b, j in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
-                    #print('weights['+str(i)+']['+str(j)+'] = '+str(self.weights[i][j]))
                     self.weights[i][j] = self.weights[i][j] + np.multiply(img_as_array[b], i)
-                    #print('new weights[' + str(i) + '][' + str(j) + '] = ' + str(self.weights[i][j]))
                 # self.T = self.T - i
-                Sum = self.calculating_weights(i, img_as_array)  # - self.T
 
     def predict(self, img_as_array):
         num = 0
