@@ -6,13 +6,14 @@ import os
 class DeltaRule:
     def __init__(self):
         self.alphabet_image = os.listdir('./alphabet')
-        self.weights = np.random.random((len(self.alphabet_image), 35))
-        self.target = np.array([128, 129, 130, 131, 132, 133])
+        self.weights = np.random.random((len(self.alphabet_image), 49))
+        self.target = np.array([128, 129, 130, 131, 132, 133, 135, 136, 137, 139, 140, 141, 142, 143, 144, 145, 146,
+                                147, 148, 149, 150, 151])
         self.epsilon = 0.1
         self.t = 0
         self.x0 = -1
-        self.learning_rate = 0.00001
-        self.y_pred = np.zeros([6])
+        self.learning_rate = 0.000001  # 0.00001
+        self.y_pred = np.zeros([len(self.alphabet_image)])
 
     def Relu(self, i, NET: int):
         if NET > 0:
@@ -58,8 +59,10 @@ class DeltaRule:
                     break
                 if img_as_array[j] > 0 and self.weights[i][b] == 0:
                     break
-            if count == 35:
-                let = int(self.calculating_weights(i, img_as_array))
+            if count == 49:
+                print('COUNT = 49')
+                let = self.calculating_weights(i, img_as_array)
+                print(let)
                 alphabet = {128: 'А', 129: 'Б', 130: 'В', 131: 'Г', 132: 'Д', 133: 'Е', 135: 'Ж',
                             136: 'З', 137: 'И', 139: 'К', 140: 'Л', 141: 'М', 142: 'Н', 143: 'О', 144: 'П', 145: 'Р',
                             146: 'С', 147: 'Т', 148: 'У', 149: 'Ф', 150: 'Х', 151: 'Ц'}
