@@ -6,13 +6,13 @@ import os
 class DeltaRule:
     def __init__(self):
         self.alphabet_image = os.listdir('./alphabet')
-        self.weights = np.random.random((len(self.alphabet_image), 49))
+        self.weights = np.random.normal(0, 0.01, (len(self.alphabet_image), 49))
         self.target = np.array([128, 129, 130, 131, 132, 133, 135, 136, 137, 139, 140, 141, 142, 143, 144, 145, 146,
                                 147, 148, 149, 150, 151])
         self.epsilon = 0.1
         self.t = 0
-        self.x0 = -1
-        self.learning_rate = 0.000001  # 0.00001
+        self.x0 = -0.1
+        self.learning_rate = 0.001  # 0.00001
         self.y_pred = np.zeros([len(self.alphabet_image)])
 
     def Relu(self, i, NET: int):
@@ -36,7 +36,7 @@ class DeltaRule:
                 img_as_array = np.append(img_as_array, img)
                 for j, b in zip(range(0, len(img_as_array), 3), range(0, len(self.weights[i]))):
                     if img_as_array[j] == 0 or img_as_array[j] == 1:
-                        img_as_array[j] = 1
+                        img_as_array[j] = 6
                     elif img_as_array[j] == 254 or img_as_array[j] == 255:
                         img_as_array[j] = 0
                         self.weights[i][b] = 0
@@ -51,13 +51,13 @@ class DeltaRule:
         for i in range(0, len(self.alphabet_image)):
             count = 0
             for j, b in zip(range(0, len(img_as_array), 3), range(0, len(self.weights[i]))):
-                if img_as_array[j] > 0 and self.weights[i][b] > 0:
+                if img_as_array[j] != 0 and self.weights[i][b] != 0:
                     count += 1
                 elif img_as_array[j] == 0 and self.weights[i][b] == 0:
                     count += 1
-                elif img_as_array[j] == 0 and self.weights[i][b] > 0:
+                elif img_as_array[j] == 0 and self.weights[i][b] != 0:
                     break
-                if img_as_array[j] > 0 and self.weights[i][b] == 0:
+                if img_as_array[j] != 0 and self.weights[i][b] == 0:
                     break
             if count == 49:
                 print('COUNT = 49')
