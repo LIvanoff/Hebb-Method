@@ -36,5 +36,5 @@ if __name__ == "__main__":
     # print('weights[' + str(0) + '] \n' + str(dr.weights[0]))
 
     # print(img_as_array)
-    # print('predict: ' + str(dr.predict(img_as_array)))
+    print('predict: ' + str(dr.predict(img_as_array)))
 
