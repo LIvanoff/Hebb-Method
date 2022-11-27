@@ -15,6 +15,12 @@ class HebbMethod:
         elif NET <= 0:
             return 0
 
+    def sigmoid(self, NET: int):
+        if NET > 0:
+            return 1
+        elif NET <= 0:
+            return -1
+
     def calculating_weights(self, i: int, img_as_array):
         Sum = 0.0
         for j, b in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
@@ -35,7 +41,7 @@ class HebbMethod:
             while self.calculating_weights(i, img_as_array) != i:
                 for j, b in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
                     self.weights[i][b] = self.weights[i][b] + np.multiply(img_as_array[j], i)
-                # self.T = self.T - i
+                self.T = self.T - i
 
     def predict(self, img_as_array):
         for i in range(0, len(self.integer_image)):
