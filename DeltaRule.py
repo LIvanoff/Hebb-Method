@@ -60,9 +60,8 @@ class DeltaRule:
                 if img_as_array[j] != 0 and self.weights[i][b] == 0:
                     break
             if count == 49:
-                print('COUNT = 49')
                 let = self.calculating_weights(i, img_as_array)
-                print(let)
+                print('code letter: '+str(let))
                 alphabet = {128: 'А', 129: 'Б', 130: 'В', 131: 'Г', 132: 'Д', 133: 'Е', 135: 'Ж',
                             136: 'З', 137: 'И', 139: 'К', 140: 'Л', 141: 'М', 142: 'Н', 143: 'О', 144: 'П', 145: 'Р',
                             146: 'С', 147: 'Т', 148: 'У', 149: 'Ф', 150: 'Х', 151: 'Ц'}
