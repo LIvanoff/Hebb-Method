@@ -33,13 +33,11 @@ class DeltaRule:
             img_as_array = np.array([])
             with Image.open('./alphabet/' + str(self.alphabet_image[i])) as img:
                 img_as_array = np.append(img_as_array, img)
-                # print(self.weights[i])
                 for j, b in zip(range(0, len(img_as_array), 3), range(0, len(self.weights[i]))):
                     if img_as_array[j] == 0 or img_as_array[j] == 1:
                         img_as_array[j] = 1
                     elif img_as_array[j] == 254 or img_as_array[j] == 255:
                         img_as_array[j] = 0
-                        #print(self.weights[i][b] )
                         self.weights[i][b] = 0
 
             while (self.target[i] - self.calculating_weights(i, img_as_array)) > self.epsilon:
@@ -61,9 +59,10 @@ class DeltaRule:
                 if img_as_array[j] > 0 and self.weights[i][b] == 0:
                     break
             if count == 35:
-                # print('self.calculating_weights(i, img_as_array) = ' + str(self.calculating_weights(i, img_as_array)))
                 let = int(self.calculating_weights(i, img_as_array))
-                alphabet = {128: 'А', 129: 'Б', 130: 'В', 131: 'Г', 132: 'Д', 133: 'Е', 134: 'Ё', 135: 'Ж'}
+                alphabet = {128: 'А', 129: 'Б', 130: 'В', 131: 'Г', 132: 'Д', 133: 'Е', 135: 'Ж',
+                            136: 'З', 137: 'И', 139: 'К', 140: 'Л', 141: 'М', 142: 'Н', 143: 'О', 144: 'П', 145: 'Р',
+                            146: 'С', 147: 'Т', 148: 'У', 149: 'Ф', 150: 'Х', 151: 'Ц'}
                 for ch in alphabet.keys():
                     if ch == let:
                         return alphabet[ch]
