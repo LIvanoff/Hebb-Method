@@ -4,7 +4,7 @@ import os
 
 class HebbMethod:
     def __init__(self):
-        self.integer_image = os.listdir('./integer')
+        self.integer_image = os.listdir('./digit')
         self.T = 0.0
         self.weights = np.zeros(shape=(len(self.integer_image), 15))
         # self.img_as_array = np.array([])
@@ -24,7 +24,7 @@ class HebbMethod:
     def train(self):
         for i in range(0,len(self.integer_image)):
             img_as_array = np.array([])
-            with Image.open('./integer/' + str(self.integer_image[i])) as img:
+            with Image.open('./digit/' + str(self.integer_image[i])) as img:
                 img_as_array = np.append(img_as_array, img)
                 for j in range(len(img_as_array)):
                     if img_as_array[j] == 0 or img_as_array[j] == 1:
