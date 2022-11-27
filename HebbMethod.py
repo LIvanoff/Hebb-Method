@@ -2,11 +2,12 @@ import numpy as np
 from PIL import Image
 import os
 
+
 class HebbMethod:
     def __init__(self):
         self.integer_image = os.listdir('./digit')
-        self.T = 0.0
         self.weights = np.zeros(shape=(len(self.integer_image), 15))
+        # self.y = np.zeros(shape=(len(self.integer_image), len(self.integer_image)))
         # self.img_as_array = np.array([])
 
     def Relu(self, NET: int):
@@ -15,12 +16,6 @@ class HebbMethod:
         elif NET <= 0:
             return 0
 
-    def sigmoid(self, NET: int):
-        if NET > 0:
-            return 1
-        elif NET <= 0:
-            return -1
-
     def calculating_weights(self, i: int, img_as_array):
         Sum = 0.0
         for j, b in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
@@ -28,7 +23,7 @@ class HebbMethod:
         return self.Relu(round(Sum))
 
     def train(self):
-        for i in range(0,len(self.integer_image)):
+        for i in range(0, len(self.integer_image)):
             img_as_array = np.array([])
             with Image.open('./digit/' + str(self.integer_image[i])) as img:
                 img_as_array = np.append(img_as_array, img)
@@ -40,8 +35,8 @@ class HebbMethod:
 
             while self.calculating_weights(i, img_as_array) != i:
                 for j, b in zip(range(0, len(img_as_array), 3), range(len(self.weights[i]))):
-                    self.weights[i][b] = self.weights[i][b] + np.multiply(img_as_array[j], i)
-                self.T = self.T - i
+                    self.weights[i][b] = self.weights[i][b] + (np.multiply(img_as_array[j], i))
+                    print('self.weights[' + str(i) + '][' + str(b) + '] = ' + str(self.weights[i][b]))
 
     def predict(self, img_as_array):
         for i in range(0, len(self.integer_image)):
@@ -57,6 +52,3 @@ class HebbMethod:
                     break
             if count == 15:
                 return self.calculating_weights(i, img_as_array)
-
-
-
